@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
                    @Override
                    public void onFailure(Call<ResponseEnvelope> call, Throwable t) {
-
+                            Log.e("报错",t.getMessage());
                    }
                });
 
