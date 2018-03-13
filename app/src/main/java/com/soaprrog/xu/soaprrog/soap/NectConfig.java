@@ -1,13 +1,10 @@
 package com.soaprrog.xu.soaprrog.soap;
 
-import android.os.Bundle;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parkingwang.okhttp3.LogInterceptor.LogInterceptor;
-import com.soaprrog.xu.soaprrog.soap.beans.ResultModel;
-import com.soaprrog.xu.soaprrog.soap.response.ResponseEnvelope;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.convert.AnnotationStrategy;

@@ -1,14 +1,10 @@
 package com.soaprrog.xu.soaprrog;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.soaprrog.xu.soaprrog.databinding.ActivityMainBinding;
 import com.soaprrog.xu.soaprrog.soap.NectConfig;
 import com.soaprrog.xu.soaprrog.soap.Path;
@@ -17,24 +13,14 @@ import com.soaprrog.xu.soaprrog.soap.beans.MobileLogin;
 import com.soaprrog.xu.soaprrog.soap.beans.ResultModel;
 import com.soaprrog.xu.soaprrog.soap.request.RequestBody;
 import com.soaprrog.xu.soaprrog.soap.request.RequestEnvelope;
-import com.soaprrog.xu.soaprrog.soap.request.RequestModel;
 import com.soaprrog.xu.soaprrog.soap.response.FlatMapResponse;
 import com.soaprrog.xu.soaprrog.soap.response.FlatMapResultModel;
-import com.soaprrog.xu.soaprrog.soap.response.ResponseEnvelope;
-import com.soaprrog.xu.soaprrog.soap.response.UnderBodyModel;
 
-import org.simpleframework.xml.Element;
-
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.Subject;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
