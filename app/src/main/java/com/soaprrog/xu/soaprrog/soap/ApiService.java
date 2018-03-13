@@ -11,6 +11,8 @@ import org.simpleframework.xml.core.Persister;
 import org.simpleframework.xml.strategy.Strategy;
 
 
+import java.util.Observable;
+
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -21,7 +23,6 @@ import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-
 
 /**
  * soap 的请求接口发起
@@ -34,37 +35,10 @@ public interface ApiService {
             "Accept-Charset: utf-8"
     })
     @POST("YxywService?wsdl")
-    Call<ResponseEnvelope> login(@Body RequestEnvelope requestEnvelope);
+//    Call<ResponseEnvelope> login(@Body RequestEnvelope requestEnvelope);
+    io.reactivex.Observable<Response<ResultModel<LoginBean>>> login(@Body RequestEnvelope requestEnvelope);
 
 
 
-    class Creator {
-        private static Strategy strategy = new AnnotationStrategy();
-        private static Serializer serializer = new Persister(strategy);
-        private static ApiService apiService;
-
-        public static ApiService get() {
-            if (apiService == null) {
-                create();
-            }
-            return apiService;
-        }
-
-        private static synchronized void create() {
-            if (apiService == null) {
-                apiService = getRetrofit().create(ApiService.class);
-            }
-        }
-
-        private static Retrofit getRetrofit() {
-            return new Retrofit.Builder()
-                    .baseUrl(Path.BASE_URL)
-                    .client(RetrofitGenerator.getInstance().getOkHttpClient())
-                    .addConverterFactory(SimpleXmlConverterFactory.create(serializer))
-                    .addConverterFactory(GsonConverterFactory.create(RetrofitGenerator.getInstance().getGson()))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
-        }
-    }
 
 }

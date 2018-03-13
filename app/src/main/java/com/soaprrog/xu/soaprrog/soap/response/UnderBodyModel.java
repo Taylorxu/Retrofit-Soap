@@ -17,11 +17,10 @@ import java.lang.reflect.Array;
  * Created by xuzhiguang on 2018/2/1.
  */
 
-@Root(name = "ns2:mobileLoginResponse")
-@Namespace(reference = "http://yxyw.extinterface.web.wisesign.cn/",prefix = "ns2")
+@Root
 public class UnderBodyModel {
 
 
-    @Element(name = "return",required = false)
+    @Element(name = "return", required = false)
     public String result;
 }

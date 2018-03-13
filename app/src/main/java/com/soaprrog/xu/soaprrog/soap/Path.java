@@ -6,5 +6,5 @@ package com.soaprrog.xu.soaprrog.soap;
 
 public class Path {
     public final static String BASE_URL = " http://work.wisesignsoft.com:20184/MWEB/services/";
-    public static String nameSpace="http://yxyw.extinterface.web.wisesign.cn/";
+    public static String NAMESPACE="http://yxyw.extinterface.web.wisesign.cn/";
 }
