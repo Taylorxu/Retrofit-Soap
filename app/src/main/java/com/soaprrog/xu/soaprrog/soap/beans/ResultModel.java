@@ -32,14 +32,7 @@ public class ResultModel<Data>   {
     public void setReturnState(String returnState) {
         this.returnState = returnState;
     }
-/*
-    public String getReturnValue() {
-        return returnValue;
-    }
 
-    public void setReturnValue(String returnValue) {
-        this.returnValue = returnValue;
-    }*/
 
     public Data getReturnValue() {
         return returnValue;

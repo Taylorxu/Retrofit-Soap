@@ -18,6 +18,8 @@ import com.soaprrog.xu.soaprrog.soap.beans.ResultModel;
 import com.soaprrog.xu.soaprrog.soap.request.RequestBody;
 import com.soaprrog.xu.soaprrog.soap.request.RequestEnvelope;
 import com.soaprrog.xu.soaprrog.soap.request.RequestModel;
+import com.soaprrog.xu.soaprrog.soap.response.FlatMapResponse;
+import com.soaprrog.xu.soaprrog.soap.response.FlatMapResultModel;
 import com.soaprrog.xu.soaprrog.soap.response.ResponseEnvelope;
 import com.soaprrog.xu.soaprrog.soap.response.UnderBodyModel;
 
@@ -44,31 +46,6 @@ public class MainActivity extends AppCompatActivity {
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
 
-    /*public void sing(View view) {
-
-               RequestModel.getRequestModel().userName="itil";
-               RequestModel.getRequestModel().userPassward="1";
-               RequestBody.getRequestBody().setMobileLogin(RequestModel.getRequestModel());
-               RequestEnvelope.getRequestEnvelope().setBody(RequestBody.getRequestBody());
-               Call<ResponseEnvelope> call= NectConfig.getInterfaceApi().login(RequestEnvelope.getRequestEnvelope());
-               call.enqueue(new Callback<ResponseEnvelope>() {
-                   @Override
-                   public void onResponse(Call<ResponseEnvelope> call, Response<ResponseEnvelope> response) {
-                       ResultModel resultModel=new Gson().fromJson(response.body().getResponseBody().getUnderBodyModel().result,ResultModel.class);
-                       if (null!=resultModel ) {
-                           LoginBean loginBean=new Gson().fromJson(resultModel.getReturnValue().toString(),new TypeToken<LoginBean>(){}.getType());
-                           mainBinding.showResult.setText("userID:"+loginBean.getUserId());
-                       }
-                   }
-
-                   @Override
-                   public void onFailure(Call<ResponseEnvelope> call, Throwable t) {
-                            Log.e("报错",t.getMessage());
-                   }
-               });
-
-           }*/
-
 
     public void sing(View view) {
         MobileLogin mobileLogin = MobileLogin.newInstance();
@@ -80,18 +57,8 @@ public class MainActivity extends AppCompatActivity {
         NectConfig.newInstance().getInterfaceApi().login(RequestEnvelope.getRequestEnvelope())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<Response<ResultModel<LoginBean>>, ObservableSource<ResultModel<LoginBean>>>() {
-                    @Override
-                    public ObservableSource<ResultModel<LoginBean>> apply(Response<ResultModel<LoginBean>> resultModelResponse) throws Exception {
-                        return io.reactivex.Observable.just(resultModelResponse.body());
-                    }
-                })
-                .flatMap(new Function<ResultModel<LoginBean>, ObservableSource<LoginBean>>() {
-                    @Override
-                    public ObservableSource<LoginBean> apply(ResultModel<LoginBean> loginBeanResultModel) throws Exception {
-                        return io.reactivex.Observable.just(loginBeanResultModel.getReturnValue());
-                    }
-                })
+                .flatMap(new FlatMapResponse<ResultModel<LoginBean>>())
+                .flatMap(new FlatMapResultModel<LoginBean>())
                 .subscribe(new Subject<LoginBean>() {
                     @Override
                     public boolean hasObservers() {
